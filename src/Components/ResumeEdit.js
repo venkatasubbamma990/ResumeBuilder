@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { Box, Grid, Typography } from '@mui/material';
 import ResumeContext from "./ResumeContext";
-//import ResumeMaker from "./ResumeMaker";
+import ResumeMaker from "./ResumeMaker";
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import BasicTabs from "./BasicTabs";
 
@@ -199,14 +199,12 @@ function Resumedit(props) {
         </Grid>
 
         <Grid item lg={5.6} md={5.6} sm={12} xs={12} >
-          {/* <ResumeMaker
+          <ResumeMaker
             userName={userName}
             password={password}
             profileData={profileData}
-            resumeFourBg={
-              props.location.state && props.location.state.tempFourBg
-            }
-          /> */}
+           
+          />
         </Grid>
       </Grid>
     </Grid>
