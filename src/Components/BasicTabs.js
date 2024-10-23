@@ -53,7 +53,7 @@ function a11yProps(index) {
 
 const steps = [
   "Header",
-  //"Skills",
+  "Skills",
   "Experience",
   "Education",
   "Certification",
@@ -236,7 +236,7 @@ export default function BasicTabs(props) {
                   ) : (
                     ""
                   )}
-                  {value ===  5 ? (
+                  {value ===  4 ? (
                     <Certification
                       handleBack={handleBack}
                       handleNext={handleNext}
@@ -247,7 +247,7 @@ export default function BasicTabs(props) {
                   ) : (
                     ""
                   )}
-                  {value ===  4 ? (
+                  {value ===  5 ? (
                     <Others
                       handleBack={handleBack}
                       handleNext={handleNext}

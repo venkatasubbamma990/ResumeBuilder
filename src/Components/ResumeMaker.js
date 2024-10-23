@@ -8,6 +8,8 @@ import {
     Divider,
     Button,
     Link,
+    Tooltip,
+    
 } from '@mui/material';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import parse from "html-react-parser";
@@ -40,6 +42,7 @@ import {
   DrawOptions,
   Group,
 } from "@progress/kendo-drawing";
+import DownloadIcon from '@mui/icons-material/Download';
 import axios from 'axios';
 
 const GradientWindowIcon = (props) => (
@@ -141,19 +144,6 @@ function ResumeMaker(props) {
        // handleSave();
       };
 
-      function dataURLtoFile(dataurl, filename) {
-        var arr = dataurl.split(","),
-          mime = arr[0].match(/:(.*?);/)[1],
-          bstr = atob(arr[1]),
-          n = bstr.length,
-          u8arr = new Uint8Array(n);
-    
-        while (n--) {
-          u8arr[n] = bstr.charCodeAt(n);
-        }
-    
-        return new File([u8arr], filename, { type: mime });
-      }
 
       const paperstyles = {
         width: "95%",
@@ -164,8 +154,62 @@ function ResumeMaker(props) {
       };
      
 
-    console.log(contextObject.stateLabel.name)
-    console.log(contextObject.stateLabel)
+      const handleDownload = () => {
+        let element = container.current;
+        // element.style.width = '100%';
+        // element.style.maxWidth = '800px';
+        drawDOM(element, {
+          paperSize: "A3",
+          margin: 38,
+          //  scale: 0.6,
+          // forcePageBreak: ".page-break",
+          // containerStyle: {
+          //   width: '100%',
+          //   display: 'flex',
+          //   justifyContent: 'space-between',
+          // }
+        })
+          .then((group) => {
+            return exportPDF(group);
+          })
+          .then((dataUri) => {
+            console.log(dataUri);
+            saveAs(dataUri, "resume_" + contextObject.name);
+            var file = dataURLtoFile(dataUri, contextObject.name + ".pdf");
+            console.log(file);
+          })
+          .catch((error) => {
+            console.error("Error during the PDF generation", error);
+          });
+      };
+    
+      const dataURLtoFile = (dataUrl, filename) => {
+        let arr = dataUrl.split(",");
+        let mime = arr[0].match(/:(.*?);/)[1];
+        let bstr = atob(arr[1]);
+        let n = bstr.length;
+        let u8arr = new Uint8Array(n);
+    
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+    
+        return new File([u8arr], filename, { type: mime });
+      };
+
+      
+const GradientDownloadIcon = (props) => (
+  <SvgIcon {...props}>
+    <defs>
+      <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="30%" style={{ stopColor: '#2282c4', stopOpacity: 1 }} />
+        <stop offset="70%" style={{ stopColor: '#406882', stopOpacity: 1 }} />
+      </linearGradient>
+    </defs>
+    <DownloadIcon sx={{ fill: 'url(#gradient1)' }} />
+  </SvgIcon>
+);
+
     return (
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -219,6 +263,11 @@ function ResumeMaker(props) {
                   </Typography>
                 </Box>
                 <Box sx={{ mx: 2, my: 0.5, zIndex: 99 }}>
+                  <Tooltip title="Download PDF" arrow>
+                    <IconButton onClick={handleDownload}>
+                      <GradientDownloadIcon sx={{ fontSize: 28 }} />
+                    </IconButton>
+                  </Tooltip>
                   <Button
                     variant="contained"
                     size="small"
@@ -298,7 +347,7 @@ function ResumeMaker(props) {
                               }}
                             >
                               {" "}
-                              { contextObject.name}
+                              {contextObject.name}
                             </Typography>
                             <Typography
                               sx={{
@@ -381,7 +430,7 @@ function ResumeMaker(props) {
                                 textAlign: "justify",
                               }}
                             >
-                              { parse(contextObject.summary)}
+                              {parse(contextObject.summary)}
                             </Typography>
                             {/* <Divider /> */}
                           </Box>
@@ -463,45 +512,53 @@ function ResumeMaker(props) {
                                               <Typography
                                                 sx={{ fontSize: "12px" }}
                                               >
-                                                {item.startdate}{" "}
-                                                -{" "}
+                                                {item.startdate} -{" "}
                                                 {item.enddate}
                                               </Typography>
                                               <Typography
                                                 sx={{ fontSize: "12px" }}
                                               >
-                                                {item.city}{" "}
-                                                ,{" "}
-                                                {item.state}
+                                                {item.city} , {item.state}
                                               </Typography>
                                             </Box>
                                           </Box>
                                           <Box sx={{ width: "100%", mr: 2 }}>
-                                          <Typography
-                                              sx={{ fontSize: "12px" , fontWeight:"bold" , color:gradiantMiddile }}
+                                            <Typography
+                                              sx={{
+                                                fontSize: "12px",
+                                                fontWeight: "bold",
+                                                color: gradiantMiddile,
+                                              }}
                                             >
                                               Description
                                             </Typography>
                                             <Typography
                                               sx={{ fontSize: "12px" }}
                                             >
-                                              {parse(item.description?.slice(0, 400))}
+                                              {parse(
+                                                item.description?.slice(0, 400)
+                                              )}
                                             </Typography>
                                             <Typography
-                                              sx={{ fontSize: "12px" ,fontWeight:"bold" , color:gradiantMiddile  }}
+                                              sx={{
+                                                fontSize: "12px",
+                                                fontWeight: "bold",
+                                                color: gradiantMiddile,
+                                              }}
                                             >
-                                             Roles &  Responsibilities :
+                                              Roles & Responsibilities :
                                             </Typography>
                                             <Typography
                                               sx={{ fontSize: "12px" }}
                                             >
-                                              {parse(item.responsibilities?.slice(0, 500))}
+                                              {parse(
+                                                item.responsibilities?.slice(
+                                                  0,
+                                                  500
+                                                )
+                                              )}
                                             </Typography>
-                                          
                                           </Box>
-                                          
-                                         
-
                                         </Box>
                                       )
                                     )}
@@ -540,7 +597,7 @@ function ResumeMaker(props) {
                                     border: `1px solid  ${bgColor}`,
                                   }}
                                 />
-                             
+
                                 {contextObject.skills?.length > 0 &&
                                   contextObject.skills.map(
                                     (categoryData, categoryIndex) => (
@@ -753,72 +810,81 @@ function ResumeMaker(props) {
                                 </Box>
                               </Box>
                               <Box
-              sx={{
-                width: "100%",
-                mt: 0.5,
-                mx: -1,
-                borderBottom: `3px solid ${gradiantMiddile}`,
-                borderTop: `3px solid ${gradiantMiddile}`,
-                borderLeft: `1px solid ${gradiantMiddile}`,
-                borderRight: `1px solid ${gradiantMiddile}`,
-                borderRadius: "25px",
-                px:2
-              }}
-            >
-              {contextObject.stateLabel.name  && (
-                <Typography
-                  sx={{
-                    fontSize: "13px",
-                    fontFamily: "'Georgia', serif !important",
-                    color: "black",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {" "}
-                  <HomeIcon
-                    style={{ fill: gradiantMiddile, fontSize: "13px" }}
-                  />{" "}
-                  {contextObject.cityLabel},{contextObject.stateLabel.name}
-                </Typography>
-              )}
-              {contextObject.visaTypeLabel && (
-                <Typography
-                  sx={{
-                    fontSize: "13px",
-                    fontFamily: "'Georgia', serif !important",
-                    color: "black",
-                  }}
-                >
-                  {" "}
-                  <AirplanemodeActiveIcon
-                    style={{ fill: gradiantMiddile, fontSize: "13px" }}
-                  />{" "}
-                  {contextObject.visaTypeLabel.join(", ")}
-                </Typography>
-              )}
-              {contextObject.jobTypeLabel && (
-                <Typography
-                  sx={{
-                    fontSize: "12px",
-                    fontFamily: "'Georgia', serif !important",
-                    color: "black",
-                  }}
-                >
-                  {" "}
-                  <WorkIcon
-                    style={{ fill: gradiantMiddile, fontSize: "13px" }}
-                  />{" "}
-                  {contextObject.jobTypeLabel.join(", ")}
-                </Typography>
-              )}
-            </Box>
+                                sx={{
+                                  width: "100%",
+                                  mt: 0.5,
+                                  mx: -1,
+                                  borderBottom: `3px solid ${gradiantMiddile}`,
+                                  borderTop: `3px solid ${gradiantMiddile}`,
+                                  borderLeft: `1px solid ${gradiantMiddile}`,
+                                  borderRight: `1px solid ${gradiantMiddile}`,
+                                  borderRadius: "25px",
+                                  px: 2,
+                                }}
+                              >
+                                {contextObject.stateLabel.name && (
+                                  <Typography
+                                    sx={{
+                                      fontSize: "13px",
+                                      fontFamily: "'Georgia', serif !important",
+                                      color: "black",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    {" "}
+                                    <HomeIcon
+                                      style={{
+                                        fill: gradiantMiddile,
+                                        fontSize: "13px",
+                                      }}
+                                    />{" "}
+                                    {contextObject.cityLabel},
+                                    {contextObject.stateLabel.name}
+                                  </Typography>
+                                )}
+                                {contextObject.visaTypeLabel && (
+                                  <Typography
+                                    sx={{
+                                      fontSize: "13px",
+                                      fontFamily: "'Georgia', serif !important",
+                                      color: "black",
+                                    }}
+                                  >
+                                    {" "}
+                                    <AirplanemodeActiveIcon
+                                      style={{
+                                        fill: gradiantMiddile,
+                                        fontSize: "13px",
+                                      }}
+                                    />{" "}
+                                    {contextObject.visaTypeLabel.join(", ")}
+                                  </Typography>
+                                )}
+                                {contextObject.jobTypeLabel && (
+                                  <Typography
+                                    sx={{
+                                      fontSize: "12px",
+                                      fontFamily: "'Georgia', serif !important",
+                                      color: "black",
+                                    }}
+                                  >
+                                    {" "}
+                                    <WorkIcon
+                                      style={{
+                                        fill: gradiantMiddile,
+                                        fontSize: "13px",
+                                      }}
+                                    />{" "}
+                                    {contextObject.jobTypeLabel.join(", ")}
+                                  </Typography>
+                                )}
+                              </Box>
                             </Grid>
                           </Grid>
                         </Grid>
                       ) : contextObject.resumetemplate === "2" ? (
-                        <Template1 bgColor={bgColor} /> 
-                      ) 
-                      : contextObject.resumetemplate === "3" ? (
+                        <Template1 bgColor={bgColor} />
+                      ) : contextObject.resumetemplate === "3" ? (
                         <Template2 bgColor={bgColor} />
                       ) : contextObject.resumetemplate === "4" ? (
                         <Template3 bgColor={bgColor} />
@@ -832,12 +898,11 @@ function ResumeMaker(props) {
                         <Template7 bgColor={bgColor} />
                       ) : contextObject.resumetemplate === "9" ? (
                         <Template8 bgColor={bgColor} />
-                      ) : contextObject.resumetemplate === "10" ? ( 
-                        <Template9 bgColor={bgColor} /> 
+                      ) : contextObject.resumetemplate === "10" ? (
+                        <Template9 bgColor={bgColor} />
                       ) : contextObject.resumetemplate === "11" ? (
                         <Template10 bgColor={bgColor} />
-                      ) 
-                      : (
+                      ) : (
                         ""
                       )}
                     </Grid>

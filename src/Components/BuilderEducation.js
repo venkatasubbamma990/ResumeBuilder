@@ -44,6 +44,12 @@ const BuilderEducation = (props) => {
             contextObject.updateEducation(Educations)
           }
     }
+    const inputStyles = {
+      width: "250px",
+      height: "30px",
+      borderRadius: "5px",
+      border: "2px solid #0f5780",
+    };
     
 
   return (
@@ -115,6 +121,7 @@ const BuilderEducation = (props) => {
                       onBlur={handleBlur}
                        className={` form-control`}
                       value={contextObject.education[index].degree}
+                      style={inputStyles}
                      
                       
                     />
@@ -132,7 +139,7 @@ const BuilderEducation = (props) => {
                       name={`yearofpassing`}
                       type="text"
                       className={` form-control`}
-                      //placeholder="Job Title"
+                      style={inputStyles}
                       autoComplete="off"
                       onChange={(e) =>
                         handleInputChange(index, e)
@@ -157,6 +164,7 @@ const BuilderEducation = (props) => {
                       }
                       onBlur={handleBlur}
                       value={contextObject.education[index].university}
+                      style={inputStyles}
                     />
                   </Grid>
                   <Grid item xs={1}>

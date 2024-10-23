@@ -48,6 +48,12 @@ const BuilderCertification = (props) => {
         }
     }
     
+    const inputStyles = {
+      width: "250px",
+      height: "30px",
+      borderRadius: "5px",
+      border: "2px solid #0f5780",
+    };
 
   return (
     <Box
@@ -122,6 +128,7 @@ const BuilderCertification = (props) => {
                       onBlur={handleBlur}
                       className={` form-control`}
                       value={contextObject.certificate[index].certName}
+                      style={inputStyles}
                     />
                   </Grid>
                   <Grid item xs={11.5} sm={5.5} lg={5.5}>
@@ -137,7 +144,7 @@ const BuilderCertification = (props) => {
                       name={`certYear`}
                       type="text"
                       className={` form-control`}
-                      //placeholder="Job Title"
+                      style={inputStyles}
                       autoComplete="off"
                       onChange={(e) => handleInputChange(index, e)}
                       onBlur={handleBlur}

@@ -1,4 +1,10 @@
-import React, { useContext, useState, useEffect, useRef,useCallback } from 'react';
+import React, {
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+} from 'react';
 import ResumeContext from './ResumeContext';
 import axios from 'axios';
 import { debounce } from 'lodash';
@@ -24,7 +30,6 @@ import {
   Alert,
   AlertTitle,
   LinearProgress,
- 
 } from '@mui/material';
 import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -61,17 +66,17 @@ const BuilderExperience = (props) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [charCount, setCharCount] = useState(0);
   const [open, setOpen] = useState(false);
-  const [suggestionsLoading , setSuggestionsLoading] = useState(false)
+  const [suggestionsLoading, setSuggestionsLoading] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [copiedIndex, setCopiedIndex] = useState([]);
-  const [projectindex , setProjectIndex] = useState("");
-  const [projectDescription ,setProjectDescription ] = useState([])
+  const [projectindex, setProjectIndex] = useState("");
+  const [projectDescription, setProjectDescription] = useState([]);
   const [isChecked, setIsChecked] = useState(true);
-  
+
   const ref0 = useRef();
   const ref1 = useRef();
   const ref2 = useRef();
-  const theme = useTheme(); 
+  const theme = useTheme();
 
   const handleClick = () => {
     setOpenDialog(true);
@@ -155,7 +160,7 @@ const BuilderExperience = (props) => {
         enddate: '',
         role: '',
         description: '',
-        checked: false
+        checked: false,
       },
     ]);
   };
@@ -169,79 +174,75 @@ const BuilderExperience = (props) => {
   const Submit = () => props.setValue(3);
 
   const handleInputChange = (index, e) => {
-    let Certifications = [...contextObject.project]
-    var name =  e.target !== undefined  ? e.target?.name : "";
-    //const fieldName = name?.split('.')[2]; 
-    console.log("statename" , name)
+    let Certifications = [...contextObject.project];
+    var name = e.target !== undefined ? e.target?.name : "";
+    //const fieldName = name?.split('.')[2];
+    console.log("statename", name);
 
     if (name === "company") {
-        Certifications[index]["company"] = e.target?.value
-        contextObject.updateProject(Certifications)
-        formikRef.current.setFieldValue("company" ,e.target.value)
+      Certifications[index]["company"] = e.target?.value;
+      contextObject.updateProject(Certifications);
+      formikRef.current.setFieldValue("company", e.target.value);
     }
     if (name === "role") {
-        Certifications[index]["role"] = e.target?.value
-        formikRef.current.setFieldValue("role" ,e.target.value)
-        contextObject.updateProject(Certifications)
+      Certifications[index]["role"] = e.target?.value;
+      formikRef.current.setFieldValue("role", e.target.value);
+      contextObject.updateProject(Certifications);
     }
     if (name === "country") {
-        Certifications[index]["country"] = e.target?.value
-        contextObject.updateProject(Certifications)
+      Certifications[index]["country"] = e.target?.value;
+      contextObject.updateProject(Certifications);
     }
     if (name === "state") {
-        Certifications[index]["state"] = e.target?.value
-        contextObject.updateProject(Certifications)
+      Certifications[index]["state"] = e.target?.value;
+      contextObject.updateProject(Certifications);
     }
     if (name === "city") {
-        Certifications[index]["city"] = e.target?.value
-        contextObject.updateProject(Certifications)
+      Certifications[index]["city"] = e.target?.value;
+      contextObject.updateProject(Certifications);
     }
     if (name === "startdate") {
-        Certifications[index]["startdate"] = e.target?.value
-        formikRef.current.setFieldValue("startdate" ,e.target?.value)
-        contextObject.updateProject(Certifications)
+      Certifications[index]["startdate"] = e.target?.value;
+      formikRef.current.setFieldValue("startdate", e.target?.value);
+      contextObject.updateProject(Certifications);
     }
     if (name === "enddate") {
-        Certifications[index]["enddate"] = e.target?.value
-        formikRef.current.setFieldValue("enddate" ,e.target?.value)
-        contextObject.updateProject(Certifications)
+      Certifications[index]["enddate"] = e.target?.value;
+      formikRef.current.setFieldValue("enddate", e.target?.value);
+      contextObject.updateProject(Certifications);
     }
     if (name === "projectTitle") {
-        Certifications[index]["projectTitle"] = e.target?.value
-        contextObject.updateProject(Certifications)
+      Certifications[index]["projectTitle"] = e.target?.value;
+      contextObject.updateProject(Certifications);
     }
     if (name === "responsibilities") {
-        Certifications[index]["responsibilities"] = e
-        contextObject.updateProject(Certifications)
+      Certifications[index]["responsibilities"] = e;
+      contextObject.updateProject(Certifications);
     }
-if (name === "description") {
-  Certifications[index]["description"] = e;
-  contextObject.updateProject(Certifications);
-}
-// //let Certifications = [...contextObject.project]
-//     setIsChecked(!isChecked);
-//     formikRef.current.setFieldValue("checked" , true)
-//     Certifications[index]["checked"] = true
-//     console.log(Certifications)
+    if (name === "description") {
+      Certifications[index]["description"] = e;
+      contextObject.updateProject(Certifications);
+    }
+    // //let Certifications = [...contextObject.project]
+    //     setIsChecked(!isChecked);
+    //     formikRef.current.setFieldValue("checked" , true)
+    //     Certifications[index]["checked"] = true
+    //     console.log(Certifications)
 
-console.log(Certifications)
-};
+    console.log(Certifications);
+  };
 
- 
   const onTextEditorchanged = (value, index) => {
     var projects = [...contextObject.project];
     projects[index]['responsibilities'] = value;
     contextObject.updateProject(projects);
   };
 
-
-
   const onTextEditorchangedOne = (value, index) => {
     var projects = [...contextObject.project];
     projects[index]['description'] = value;
     contextObject.updateProject(projects);
   };
- 
 
   const updateCities = (event, value, index, name) => {
     console.log(event);
@@ -277,9 +278,8 @@ console.log(Certifications)
     }
   };
 
- 
   const getProjectSuggestions = (index) => {
-    setProjectIndex(index)
+    setProjectIndex(index);
     // if (
     //       contextObject.project[index]?.role !== '' &&
     //       contextObject.project[index]?.role !== undefined &&
@@ -301,7 +301,7 @@ console.log(Certifications)
     //       //   ]
     //       // }
     //       // Only include relevant information that is specific to the job role and experience. Focus on actionable, role-specific responsibilities and tasks.`;
-          
+
     //       const msg = `The following is the role of a project. Based on this project role, please provide comprehensive suggestions for the roles and responsibilities. Ensure that the output is in JSON format, with each suggestion being a well-developed, in-depth point. The project role is for a ${contextObject.project[index].role}.
 
     //       Format the output as:
@@ -321,8 +321,7 @@ console.log(Certifications)
     //           var data = results;
     //           console.log("data", data);
     //           let combinedData = [];
-      
-             
+
     //           setProjectSuggestions(data?.suggestions);
     //           setSuggestionsLoading(false);
     //         }
@@ -333,7 +332,6 @@ console.log(Certifications)
     //       let msg = "Please Enter Project Role";
     //       toast(<ToastMessage message={msg} />);
     //     }
-   
   };
   const handleMouseEnter = (index) => {
     console.log("index", index);
@@ -358,7 +356,8 @@ console.log(Certifications)
 
   const handleSummaryClick = (summary) => {
     const projects = [...contextObject.project];
-    projects[projectindex]['responsibilities'] = (projects[projectindex]['responsibilities'] || "") + summary;
+    projects[projectindex]['responsibilities'] =
+      (projects[projectindex]['responsibilities'] || "") + summary;
     contextObject.updateProject(projects);
   };
 
@@ -374,21 +373,25 @@ console.log(Certifications)
     //enddate: Yup.string().required("End Date is required"),
   });
 
-  
   const handleRolesClose = () => {
     setOpen(false);
-  }
+  };
   const handleChange = (index) => {
-    let Certifications = [...contextObject.project]
+    let Certifications = [...contextObject.project];
     setIsChecked(!isChecked);
-    formikRef.current.setFieldValue("checked" , isChecked)
-    Certifications[index]["checked"] = isChecked
-    console.log(isChecked)
-    contextObject.updateProject(Certifications)
-    console.log(Certifications)
+    formikRef.current.setFieldValue("checked", isChecked);
+    Certifications[index]["checked"] = isChecked;
+    console.log(isChecked);
+    contextObject.updateProject(Certifications);
+    console.log(Certifications);
   };
 
-
+  const inputStyles = {
+    width: "250px",
+    height: "30px",
+    borderRadius: "5px",
+    border: "2px solid #0f5780",
+  };
 
   return (
     <Box
@@ -504,7 +507,7 @@ console.log(Certifications)
           responsibilities: contextObject.project.map(
             (project) => project.responsibilities
           ),
-          checked : contextObject.project.map((project) => project.checked)
+          checked: contextObject.project.map((project) => project.checked),
         }}
         validationSchema={validationSchema}
         onSubmit={(values, actions) => {
@@ -543,7 +546,7 @@ console.log(Certifications)
                       <Grid container spacing={1}>
                         <Grid item xs={12} sm={6}>
                           <label htmlFor={`projectTitle-${index}`}>
-                            Project Title{" "}
+                            Project Title <br />
                           </label>
                           <input
                             type="text"
@@ -558,6 +561,7 @@ console.log(Certifications)
                               handleInputChange(index, e);
                             }}
                             className={`form-control `}
+                            style={inputStyles}
                           />
                         </Grid>
 
@@ -565,6 +569,7 @@ console.log(Certifications)
                           <label htmlFor={`role-${index}`}>
                             Role <span style={{ color: "red" }}>*</span>
                           </label>
+                          <br />
                           <input
                             type="text"
                             id="role"
@@ -578,10 +583,11 @@ console.log(Certifications)
                               handleInputChange(index, e);
                             }}
                             // onBlur={() => getProjectSuggestions(index)}
-                            onBlur={ handleBlur}
+                            onBlur={handleBlur}
                             className={`form-control ${
                               touched.role && errors.role ? "is-invalid" : ""
                             }`}
+                            style={inputStyles}
                           />
                           <ErrorMessage
                             name={`role`}
@@ -594,6 +600,7 @@ console.log(Certifications)
                           <label htmlFor={`company-${index}`}>
                             Client <span style={{ color: "red" }}>*</span>
                           </label>
+                          <br />
                           <input
                             type="text"
                             id={`company`}
@@ -612,7 +619,7 @@ console.log(Certifications)
                                 ? "is-invalid"
                                 : ""
                             }`}
-                            //placeholder="Client"
+                            style={inputStyles}
                           />
                           <ErrorMessage
                             name="company"
@@ -620,56 +627,11 @@ console.log(Certifications)
                             className="invalid-feedback"
                           />
                         </Grid>
-
-                      
-                        {/* <Grid item xs={12} sm={6}>
-                          <label htmlFor={`state-${index}`}>
-                            State
-                            
-                          </label>
-                          <Autocomplete
-                            disablePortal
-                            id="combo-box-demo"
-                            ref={ref2}
-                            name="state"
-                            options={states}
-                            value={
-                              contextObject.project[index] !== undefined
-                                ? contextObject.project[index].state
-                                : ""
-                            }
-                            sx={{
-                              "& .MuiInputBase-input::placeholder": {
-                                color: alpha(theme.palette.text.primary, 0.5),
-                              },
-                              "& .MuiAutocomplete-inputRoot": {
-                                padding: "1px",
-                                height: '38px',
-                              },
-                              "& .MuiAutocomplete-popover": {
-                                width: '100%',
-                              },
-                            }}
-                            renderInput={(params) => (
-                              <TextField {...params} fullWidth />
-                            )}
-                            onChange={(e, val) => {
-                              getCities(val);
-                              const name =
-                                ref2.current !== "null" && ref2.current !== null
-                                  ? ref2.current.getAttribute("name")
-                                  : "state";
-
-                              updateState(e, val, index, name);
-                              // handleInputChange(index, e, "state", val);
-                            }}
-                          />
-                        </Grid> */}
-
                         <Grid item xs={12} sm={6}>
                           <label htmlFor={`State-${index}`}>
-                          State <span style={{ color: "red" }}>*</span>
+                            State <span style={{ color: "red" }}>*</span>
                           </label>
+                          <br />
                           <input
                             type="text"
                             id="State"
@@ -683,10 +645,11 @@ console.log(Certifications)
                               handleInputChange(index, e);
                             }}
                             // onBlur={() => getProjectSuggestions(index)}
-                            onBlur={ handleBlur}
+                            onBlur={handleBlur}
                             className={`form-control ${
                               touched.state && errors.state ? "is-invalid" : ""
                             }`}
+                            style={inputStyles}
                           />
                           <ErrorMessage
                             name={`state`}
@@ -695,12 +658,12 @@ console.log(Certifications)
                           />
                         </Grid>
 
-
-                        <Grid item xs={12} sm={6}>  
+                        <Grid item xs={12} sm={6}>
                           <label htmlFor={`cities-${index}`}>
-                          City <span style={{ color: "red" }}>*</span>
+                            City <span style={{ color: "red" }}>*</span>
                           </label>
-                          <input  
+                          <br />
+                          <input
                             type="text"
                             id="cities"
                             name="cities"
@@ -713,10 +676,11 @@ console.log(Certifications)
                               handleInputChange(index, e);
                             }}
                             // onBlur={() => getProjectSuggestions(index)}
-                            onBlur={ handleBlur}
+                            onBlur={handleBlur}
                             className={`form-control ${
                               touched.state && errors.state ? "is-invalid" : ""
                             }`}
+                            style={inputStyles}
                           />
                           <ErrorMessage
                             name={`state`}
@@ -725,12 +689,11 @@ console.log(Certifications)
                           />
                         </Grid>
 
-                            
-
                         <Grid item xs={12} sm={6}>
                           <label htmlFor={`startdata-${index}`}>
                             Start Date <span style={{ color: "red" }}>*</span>
                           </label>
+                          <br />
                           <input
                             type="text"
                             id={`startdate-${index}`}
@@ -749,6 +712,7 @@ console.log(Certifications)
                                 ? "is-invalid"
                                 : ""
                             }`}
+                            style={inputStyles}
                           />
                           <ErrorMessage
                             name="startdate"
@@ -757,11 +721,12 @@ console.log(Certifications)
                           />
                         </Grid>
 
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12} sm={12}>
                           <label htmlFor={`enddate-${index}`}>
-                            End Date 
+                            End Date
                             {/* <span style={{ color: "red" }}>*</span> */}
                           </label>
+                          <br />
                           <input
                             type="text"
                             id={`enddate-${index}`}
@@ -775,32 +740,30 @@ console.log(Certifications)
                               handleInputChange(index, event)
                             }
                             onBlur={handleBlur}
-                            className={`form-control` }
-                            disabled={contextObject.project[index] !== undefined
-                            &&  contextObject.project[index].checked
-                               === true}
-                            //   ${
-                            //   touched.enddate && errors.enddate
-                            //     ? "is-invalid"
-                            //     : ""
-                            // }`}
+                            className={`form-control`}
+                            disabled={
+                              contextObject.project[index] !== undefined &&
+                              contextObject.project[index].checked === true
+                            }
+                            style={inputStyles}
                           />
-                          {/* <ErrorMessage
-                            name="enddate"
-                            component="div"
-                            className="invalid-feedback"
-                          /> */}
-                           <input
-                    type="checkbox"
-                    id="checkboxField"
-                    //checked={isChecked}
-                    name = "checked"
-                    onChange={() =>  handleChange(index)}
-                    value ={ contextObject.project[index] !== undefined
-                    ? contextObject.project[index].checked === true
-                    : false}
-                  /> {" "}
-                  <label htmlFor="checkboxField" style={{fontSize:"13px"}}>Currently Working</label>
+                          <input
+                            type="checkbox"
+                            id="checkboxField"
+                            name="checked"
+                            onChange={() => handleChange(index)}
+                            value={
+                              contextObject.project[index] !== undefined
+                                ? contextObject.project[index].checked === true
+                                : false
+                            }
+                          />{" "}
+                          <label
+                            htmlFor="checkboxField"
+                            style={{ fontSize: "13px" }}
+                          >
+                            Currently Working
+                          </label>
                         </Grid>
                         <Grid item xs={12}>
                           <Box
@@ -827,10 +790,9 @@ console.log(Certifications)
                                   ].description.slice(0, 400)
                                 : ""
                             }
-
                             // value={
-                            //   contextObject.project[index] !== undefined 
-                            //     ? contextObject.project[index].description.slice(0, 400) 
+                            //   contextObject.project[index] !== undefined
+                            //     ? contextObject.project[index].description.slice(0, 400)
                             //     : ""
                             // }
                             // onChange={event => handleInputChange(index, event)}
@@ -842,7 +804,7 @@ console.log(Certifications)
                           />
                           <div>{charCount} / 400 characters</div>
                           {contextObject.project[index].description?.length >
-                        400 ? (
+                          400 ? (
                             <p style={{ color: "#d32f2f", fontSize: "12px" }}>
                               You can add up to 400 characters only*
                             </p>
@@ -856,14 +818,14 @@ console.log(Certifications)
                               width: "100%",
                               display: "flex",
                               justifyContent: "space-between",
-                              mb:1
+                              mb: 1,
                             }}
                           >
                             <label>Roles & Responsibilities</label>
                             <Button
                               variant="outlined"
                               size="small"
-                               onClick={()=> getProjectSuggestions(index)}
+                              onClick={() => getProjectSuggestions(index)}
                               startIcon={<AddCircleRoundedIcon />}
                               style={{
                                 cursor: "pointer",
@@ -884,7 +846,7 @@ console.log(Certifications)
                               contextObject.resumetemplate !== "10" &&
                               contextObject.resumetemplate !== "11"
                                 ? contextObject.project[index] !== undefined
-                                  ? contextObject.project[index]    
+                                  ? contextObject.project[index]
                                       .responsibilities
                                   : ""
                                 : contextObject.project[index] !== undefined
@@ -900,9 +862,9 @@ console.log(Certifications)
                               handleInputChange(e, index);
                             }}
                           />
-                           <div>{charCount} / 500 characters</div>
-                          {contextObject.project[index].responsibilities?.length >
-                          500 ? (
+                          <div>{charCount} / 500 characters</div>
+                          {contextObject.project[index].responsibilities
+                            ?.length > 500 ? (
                             <p style={{ color: "#d32f2f", fontSize: "12px" }}>
                               You can add up to 500 characters only*
                             </p>
@@ -937,7 +899,7 @@ console.log(Certifications)
                 //   contextObject.resumetemplate !== "10" &&
                 //   contextObject.resumetemplate !== "11"
                 //     ? false
-                //     : true  
+                //     : true
                 // }
                 style={{
                   textTransform: "capitalize",
@@ -988,135 +950,125 @@ console.log(Certifications)
           </Box>
         </Grid>
       </Grid>
-      <Dialog
-            open={open}
-            onClose={handleRolesClose}
-            fullWidth
-            maxWidth="sm"
-          >
-            <DialogTitle sx={{ fontWeight: "bold", fontSize: "15px" }}>
-              AI-crafted Roles & Responsibilities 
-              {/*-  (
+      <Dialog open={open} onClose={handleRolesClose} fullWidth maxWidth="sm">
+        <DialogTitle sx={{ fontWeight: "bold", fontSize: "15px" }}>
+          AI-crafted Roles & Responsibilities
+          {/*-  (
               <span style={{ textTransform: "capitalize" }}>
                 {contextObject.project[projectindex].role}
               </span>
               ) */}
-              <IconButton
-                aria-label="close"
-                onClick={handleRolesClose}
-                sx={{
-                  position: 'absolute',
-                  right: 8,
-                  top: 8,
-                  color: (theme) => theme.palette.grey[500],
-                }}
+          <IconButton
+            aria-label="close"
+            onClick={handleRolesClose}
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <AiOutlineCloseCircle />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent dividers>
+          {suggestionsLoading ? (
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              mt={2}
+              p={5}
+            >
+              <Alert
+                severity="info"
+                style={{ display: 'flex', alignItems: 'center' }}
               >
-                <AiOutlineCloseCircle />
-              </IconButton>
-            </DialogTitle>
-            <DialogContent dividers>
-              {suggestionsLoading ? (
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                  mt={2}
-                  p={5}
-                >
-                  <Alert
-                    severity="info"
-                    style={{ display: 'flex', alignItems: 'center' }}
-                  >
-                    <Box p={3}>
-                      <AlertTitle>⏳Suggestions in Progress</AlertTitle>
-                      Fetching Suggestions from AI. Please wait...
-                    </Box>
-                    <LinearProgress style={{ width: '100%' }} />
-                  </Alert>
+                <Box p={3}>
+                  <AlertTitle>⏳Suggestions in Progress</AlertTitle>
+                  Fetching Suggestions from AI. Please wait...
                 </Box>
-              ) : (
-                <>
+                <LinearProgress style={{ width: '100%' }} />
+              </Alert>
+            </Box>
+          ) : (
+            <>
+              <Typography sx={{ mb: 2, fontWeight: "bold", fontSize: "12px" }}>
+                Click on the Suggestions to add to your Project
+              </Typography>
+              {projectSuggestions?.length > 0 ? (
+                <List
+                  sx={{
+                    fontSize: "12px",
+                    textAlign: "justify",
+                    bgcolor: "#eff2f9",
+                  }}
+                >
                   <Typography
-                    sx={{ mb: 2, fontWeight: "bold", fontSize: "12px" }}
+                    style={{
+                      fontSize: "12px",
+                      color: "#000",
+                      paddingLeft: "10px",
+                    }}
                   >
-                    Click on the Suggestions to add to your Project
+                    {`${contextObject.jobTitle} with ${contextObject.experience} years of experience`}
                   </Typography>
-                  {projectSuggestions?.length > 0 ? (
-                    <List
-                      sx={{
-                        fontSize: "12px",
-                        textAlign: "justify",
-                        bgcolor: "#eff2f9",
-                      }}
-                    >
-                      <Typography
-                        style={{
-                          fontSize: "12px",
-                          color: "#000",
-                          paddingLeft: "10px",
-                        }}
+                  {projectSuggestions?.length > 0 &&
+                    projectSuggestions?.map((data, index) => (
+                      <ListItem
+                        key={index}
+                        style={{ paddingBottom: "2px", color: "#000" }}
                       >
-                        {`${contextObject.jobTitle} with ${contextObject.experience} years of experience`}
-                      </Typography>
-                      {projectSuggestions?.length > 0 && projectSuggestions?.map((data, index) => (
-                        <ListItem
-                          key={index}
-                          style={{ paddingBottom: "2px", color: "#000" }}
-                        
-                        >
-                          <ListItemText style={{ cursor: "pointer" }}>
-                            <Typography sx={{ fontSize: "12px" }}>
-                              {" "}
-                              {parse(data)}
-                              <Tooltip
-                                title={
-                                  copiedIndex?.includes(index)
-                                    ? 'Copied'
-                                    : 'Copy'
+                        <ListItemText style={{ cursor: "pointer" }}>
+                          <Typography sx={{ fontSize: "12px" }}>
+                            {" "}
+                            {parse(data)}
+                            <Tooltip
+                              title={
+                                copiedIndex?.includes(index) ? 'Copied' : 'Copy'
+                              }
+                              open={hoveredIndex === index}
+                              arrow
+                            >
+                              <IconButton
+                                size="small"
+                                sx={{
+                                  color: copiedIndex?.includes(index)
+                                    ? 'green'
+                                    : 'inherit',
+                                }}
+                                onMouseEnter={() => handleMouseEnter(index)}
+                                onMouseLeave={handleMouseLeave}
+                                onClick={() =>
+                                  handleSuggestionsClick(index, data)
                                 }
-                                open={hoveredIndex === index}
-                                arrow
+                                // disabled = {copiedIndex?.includes(index) }
                               >
-                               
-                                <IconButton
-                                  size="small"
-                                  sx={{
-                                    color: copiedIndex?.includes(index)
-                                      ? 'green'
-                                      : 'inherit',
-                                  }}
-                                  onMouseEnter={() => handleMouseEnter(index)}
-                                  onMouseLeave={handleMouseLeave}
-                                  onClick={() => handleSuggestionsClick(index, data)}
-                                  // disabled = {copiedIndex?.includes(index) }
-                                >
-                                  <ContentCopyIcon
-                                    sx={{ fontSize: '12px', marginLeft: '5px' }}
-                                  />
-                                </IconButton>
-                              </Tooltip>
-                            </Typography>
-                          </ListItemText>
-                        </ListItem>
-                      ))}
-                    </List>
-                  ) : (
-                    <Typography variant="body2" color="textSecondary">
-                      <BsArrowLeftCircle size={20} color="lightgrey" />
-                      &nbsp;Resume Summary Suggestions
-                    </Typography>
-                  )}
-                </>
+                                <ContentCopyIcon
+                                  sx={{ fontSize: '12px', marginLeft: '5px' }}
+                                />
+                              </IconButton>
+                            </Tooltip>
+                          </Typography>
+                        </ListItemText>
+                      </ListItem>
+                    ))}
+                </List>
+              ) : (
+                <Typography variant="body2" color="textSecondary">
+                  <BsArrowLeftCircle size={20} color="lightgrey" />
+                  &nbsp;Resume Summary Suggestions
+                </Typography>
               )}
-
-            
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleRolesClose} color="primary">
-                Close
-              </Button>
-            </DialogActions>
-          </Dialog>
+            </>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleRolesClose} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
