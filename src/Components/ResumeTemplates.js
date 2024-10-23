@@ -128,16 +128,15 @@ function ResumeTemplates() {
 
   const handleImage = (templateId) => {
     setTemplateId(templateId);
-    console.log(templateId)
+    console.log("template" ,templateId)
     contextObject.updateResumetemplate(JSON.stringify(templateId));
    
     // const newResumes = resumes.filter((resume) =>
     //   resume.id === templateId ? resume : null
-    // );
+    // );   
     // setResume(newResumes[0]);
     // history.push({
     //   pathname: "/createResume",
-      
     // });
     navigate("/createResume")
     const savedData = sessionStorage.getItem('resumeData')  && sessionStorage.getItem('resumeData') ;
@@ -187,7 +186,7 @@ function ResumeTemplates() {
       contextObject.updateFinish(data.finish);
       contextObject.updateFinishOne(data.finishOne);
       contextObject.updateCertificateLogo(data.certificateLogo);
-      contextObject.getStates(data.statesList);
+      //contextObject.getStates(data.statesList); 
     }
 
     // setShowForm(true);

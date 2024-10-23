@@ -11,6 +11,7 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
+import Others from "./Others";
 
 
 function TabPanel(props) {
@@ -56,6 +57,7 @@ const steps = [
   "Experience",
   "Education",
   "Certification",
+  "Others"
 ];
 
 export default function BasicTabs(props) {
@@ -234,8 +236,19 @@ export default function BasicTabs(props) {
                   ) : (
                     ""
                   )}
-                  {value ===  4 ? (
+                  {value ===  5 ? (
                     <Certification
+                      handleBack={handleBack}
+                      handleNext={handleNext}
+                      createUser={createUser}
+                      value={value}
+                      setValue={setValue}
+                    />
+                  ) : (
+                    ""
+                  )}
+                  {value ===  4 ? (
+                    <Others
                       handleBack={handleBack}
                       handleNext={handleNext}
                       createUser={createUser}

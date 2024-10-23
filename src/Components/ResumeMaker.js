@@ -22,7 +22,7 @@ import Template2 from './Templates/Template2';
 import Template4 from './Templates/Template4';
 import Template5 from './Templates/Template5';
 import Template6 from './Templates/Template6';
-import Template7 from './Templates/Template7';
+import Template7 from './Templates/Template7';  
 import Template8 from './Templates/Template8';
 import Template9 from './Templates/Template9';
 import Template10 from './Templates/Template10';
@@ -195,7 +195,7 @@ function ResumeMaker(props) {
               >
                 <Box
                   sx={{
-                    width: "25%",
+                    width: "30%",
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
@@ -816,27 +816,27 @@ function ResumeMaker(props) {
                           </Grid>
                         </Grid>
                       ) : contextObject.resumetemplate === "2" ? (
-                        <Template1 bgColor={bgColor} />
+                        <Template1 bgColor={bgColor} /> 
                       ) 
-                      // : contextObject.resumetemplate === "3" ? (
-                      //   <Template2 bgColor={bgColor} />
-                      // ) : contextObject.resumetemplate === "4" ? (
-                      //   <Template3 bgColor={bgColor} />
-                      // ) : contextObject.resumetemplate === "5" ? (
-                      //   <Template4 bgColor={bgColor} />
-                      // ) : contextObject.resumetemplate === "6" ? (
-                      //   <Template5 bgColor={bgColor} />
-                      // ) : contextObject.resumetemplate === "7" ? (
-                      //   <Template6 bgColor={bgColor} />
-                      // ) : contextObject.resumetemplate === "8" ? (
-                      //   <Template7 bgColor={bgColor} />
-                      // ) : contextObject.resumetemplate === "9" ? (
-                      //   <Template8 bgColor={bgColor} />
-                      // ) : contextObject.resumetemplate === "10" ? (
-                      //   <Template9 bgColor={bgColor} />
-                      // ) : contextObject.resumetemplate === "11" ? (
-                      //   <Template10 bgColor={bgColor} />
-                      // ) 
+                      : contextObject.resumetemplate === "3" ? (
+                        <Template2 bgColor={bgColor} />
+                      ) : contextObject.resumetemplate === "4" ? (
+                        <Template3 bgColor={bgColor} />
+                      ) : contextObject.resumetemplate === "5" ? (
+                        <Template4 bgColor={bgColor} />
+                      ) : contextObject.resumetemplate === "6" ? (
+                        <Template5 bgColor={bgColor} />
+                      ) : contextObject.resumetemplate === "7" ? (
+                        <Template6 bgColor={bgColor} />
+                      ) : contextObject.resumetemplate === "8" ? (
+                        <Template7 bgColor={bgColor} />
+                      ) : contextObject.resumetemplate === "9" ? (
+                        <Template8 bgColor={bgColor} />
+                      ) : contextObject.resumetemplate === "10" ? ( 
+                        <Template9 bgColor={bgColor} /> 
+                      ) : contextObject.resumetemplate === "11" ? (
+                        <Template10 bgColor={bgColor} />
+                      ) 
                       : (
                         ""
                       )}

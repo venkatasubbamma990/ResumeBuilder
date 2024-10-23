@@ -219,7 +219,7 @@ const BuilderEducation = (props) => {
                   textTransform: "capitalize",
                   backgroundColor: "#406882",
                 }}
-                onClick={() => props.setValue(0)}
+                onClick={() => props.setValue(2)}
               >
                 <ArrowBackIcon style={{ fontSize: "15px" }} />
                 Previous
@@ -234,7 +234,7 @@ const BuilderEducation = (props) => {
                   textTransform: "capitalize",
                   backgroundColor: "#406882",
                 }}
-                onClick={() => props.setValue(2)}
+                onClick={() => props.setValue(4)}
               >
                 Next <ArrowForwardIcon style={{ fontSize: "15px" }} />
               </Button>

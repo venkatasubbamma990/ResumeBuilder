@@ -172,6 +172,7 @@ const BuilderExperience = (props) => {
     let Certifications = [...contextObject.project]
     var name =  e.target !== undefined  ? e.target?.name : "";
     //const fieldName = name?.split('.')[2]; 
+    console.log("statename" , name)
 
     if (name === "company") {
         Certifications[index]["company"] = e.target?.value
@@ -222,6 +223,8 @@ if (name === "description") {
 //     formikRef.current.setFieldValue("checked" , true)
 //     Certifications[index]["checked"] = true
 //     console.log(Certifications)
+
+console.log(Certifications)
 };
 
  
@@ -618,54 +621,11 @@ if (name === "description") {
                           />
                         </Grid>
 
-                        <Grid item xs={12} sm={6}>
-                          <label htmlFor={`country-${index}`}>
-                            Country
-                            {/* <span style={{ color: "red" }}>*</span> */}
-                          </label>
-                          <Autocomplete
-                            disablePortal
-                            ref={ref1}
-                            name="country"
-                            id="combo-box-demo"
-                            options={countries}
-                            value={
-                              contextObject.project[index].country === ""
-                                ? "United States"
-                                : contextObject.project[index] !== undefined
-                                ? contextObject.project[index].country
-                                : ""
-                            }
-                            defaultValue={{
-                              label: "United States",
-                              value: 223,
-                            }}
-                            sx={{
-                              "& .MuiInputBase-input::placeholder": {
-                                color: alpha(theme.palette.text.primary, 0.5),
-                              },
-                              "& .MuiAutocomplete-inputRoot": {
-                                padding: "1px",
-                                height: '38px',
-                              },
-                              "& .MuiAutocomplete-popover": {
-                                width: '100%',
-                              },
-                            }}
-                            renderInput={(params) => (
-                              <TextField {...params} fullWidth />
-                            )}
-                            onChange={(e, val) => {
-                              const name = ref1.current.getAttribute("name");
-                              updateCountry(e, val, index, name);
-                            }}
-                          />
-                        </Grid>
-
-                        <Grid item xs={12} sm={6}>
+                      
+                        {/* <Grid item xs={12} sm={6}>
                           <label htmlFor={`state-${index}`}>
                             State
-                            {/* <span style={{ color: "red" }}>*</span> */}
+                            
                           </label>
                           <Autocomplete
                             disablePortal
@@ -704,50 +664,68 @@ if (name === "description") {
                               // handleInputChange(index, e, "state", val);
                             }}
                           />
-                        </Grid>
+                        </Grid> */}
 
                         <Grid item xs={12} sm={6}>
-                          <label htmlFor={`city-${index}`}>
-                            City
-                            {/* <span style={{ color: "red" }}>*</span> */}
+                          <label htmlFor={`State-${index}`}>
+                          State <span style={{ color: "red" }}>*</span>
                           </label>
-                          <Autocomplete
-                            disablePortal
-                            id="combo-box-demo"
+                          <input
+                            type="text"
+                            id="State"
+                            name="state"
+                            value={
+                              contextObject.project[index] !== undefined
+                                ? contextObject.project[index].state
+                                : ""
+                            }
+                            onChange={(e) => {
+                              handleInputChange(index, e);
+                            }}
+                            // onBlur={() => getProjectSuggestions(index)}
+                            onBlur={ handleBlur}
+                            className={`form-control ${
+                              touched.state && errors.state ? "is-invalid" : ""
+                            }`}
+                          />
+                          <ErrorMessage
+                            name={`state`}
+                            component="div"
+                            className="invalid-feedback"
+                          />
+                        </Grid>
+
+
+                        <Grid item xs={12} sm={6}>  
+                          <label htmlFor={`cities-${index}`}>
+                          City <span style={{ color: "red" }}>*</span>
+                          </label>
+                          <input  
+                            type="text"
+                            id="cities"
                             name="cities"
-                            options={cities}
-                            ref={ref0}
-                            getOptionLabel={(option) => option.label}
                             value={
                               contextObject.project[index] !== undefined
                                 ? contextObject.project[index].cities
                                 : ""
                             }
-                            sx={{
-                              "& .MuiInputBase-input::placeholder": {
-                                color: alpha(theme.palette.text.primary, 0.5),
-                              },
-                              "& .MuiAutocomplete-inputRoot": {
-                                padding: "1px",
-                                height: '38px',
-                              },
-                              "& .MuiAutocomplete-popover": {
-                                width: '100%',
-                              },
+                            onChange={(e) => {
+                              handleInputChange(index, e);
                             }}
-                            renderInput={(params) => (
-                              <TextField {...params} fullWidth />
-                            )}
-                            onChange={(e, val) => {
-                              const name =
-                                ref0.current !== "null" && ref0.current !== null
-                                  ? ref0.current.getAttribute("name")
-                                  : "cities";
-                              updateCities(e, val, index, name);
-                              //  handleInputChange(index, e, "cities", val);
-                            }}
+                            // onBlur={() => getProjectSuggestions(index)}
+                            onBlur={ handleBlur}
+                            className={`form-control ${
+                              touched.state && errors.state ? "is-invalid" : ""
+                            }`}
+                          />
+                          <ErrorMessage
+                            name={`state`}
+                            component="div"
+                            className="invalid-feedback"
                           />
                         </Grid>
+
+                            
 
                         <Grid item xs={12} sm={6}>
                           <label htmlFor={`startdata-${index}`}>
